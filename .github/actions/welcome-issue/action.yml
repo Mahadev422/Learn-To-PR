@@ -6,6 +6,6 @@ runs:
   steps:
     - name: Run welcome script
       shell: bash
-      run: node .github/actions/issue-welcome/script.mjs
+      run: node .github/actions/welcome-issue/script.mjs
       env:
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
