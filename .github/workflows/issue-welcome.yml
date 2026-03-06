@@ -1,0 +1,29 @@
+name: Issue Welcome
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Octokit
+        run: npm install @octokit/rest
+
+      - name: Run welcome action
+        uses: ./.github/actions/issue-welcome
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
