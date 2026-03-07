@@ -1,0 +1,33 @@
+name: Lable PR
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - unlabeled
+      - reopened
+
+jobs:
+  label-pr:
+    runs-on: ubuntu-lates
+
+    permissions:
+      issues: write
+      pull_requests: write
+
+    steps:
+      - name: Label PR
+        uses: action/github-script@v7
+        with:
+          script: |
+            const prNo = context.payload.pull_request.number;
+            const author = context.payload.pull_request.user.login;
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNo,
+              labels: ["pr-submitted"]
+            });
+
