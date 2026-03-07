@@ -1,0 +1,23 @@
+name: Lint and Deploy
+
+on:
+  push:
+    branches: [main]
+    paths: ['**.html', '**.js', '**.css']
+
+  pull_request:
+    paths: ['**.html', '**.js', '**.css']
+
+jobs:
+  check-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Linter
+        run: npx eslint "**/*.js"
+
+      - name: Deploy
+        if: github.event_name == 'push' # Only deploy on actual merge/push to main
+        run: echo "Deploying to GitHub Pages..."
+
