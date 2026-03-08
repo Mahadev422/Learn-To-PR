@@ -2,6 +2,8 @@
 // const now = new Date();
 // yearEle.innerText = now.getFullYear();
 
+console.log('hii');
+
 const appEle = document.getElementById("app");
 const headerEle = document.getElementById("header-container");
 loadPage("layout/Header", headerEle);
@@ -10,7 +12,7 @@ const footerEle = document.getElementById("footer-container");
 loadPage("layout/Footer", footerEle);
 
 async function loadPage(page, element) {
-  const res = await fetch(`../pages/${page}.html`);
+  const res = await fetch(`/pages/${page}.html`);
   const html = await res.text();
   element.innerHTML = html;
 }
@@ -26,3 +28,4 @@ async function router() {
 
 window.addEventListener("hashchange", router);
 window.addEventListener("load", router);
+
