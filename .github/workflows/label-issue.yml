@@ -37,8 +37,8 @@ jobs:
         run: |
           node <<'EOF'
 
-          import { GoogleGenAI } from "@google/genai";
-          import fs from "fs";
+          const { GoogleGenAI } = require("@google/genai");
+          const fs = require("fs");
 
           const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY });
 
@@ -67,7 +67,7 @@ jobs:
           Based on the below issue title and body, give labels.
 
           Issue Title: ${process.env.ISSUE_TITLE}
-          Issue Body: ${process.env.ISSUE_BODY}
+          Issue Body: ${process.env.ISSUE_BODY || ""}
           `;
           const labels = await main(prompt);
 
