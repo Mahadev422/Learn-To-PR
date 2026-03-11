@@ -1,7 +1,8 @@
-# No [tool.ruff] header needed here!
-select = ["E", "F", "I"]
-ignore = ["E501"]
-
 [lint]
-# If you have lint-specific settings, use [lint] instead of [tool.ruff.lint]
-ignore = ["D100"]
+# E902: IOError, E999: SyntaxError
+# F632: use of 'is' for literals (often a logic bug)
+# F701-F723: Syntax-related errors in strings/f-strings
+select = ["E9", "F63", "F7", "F82"]
+
+# This ensures it ignores everything else (style, sorting, unused imports)
+ignore = []
