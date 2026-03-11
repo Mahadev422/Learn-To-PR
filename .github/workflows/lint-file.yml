@@ -39,6 +39,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup python
+        uses: action/setup-python@v5
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+
       - name: Install Ruff
         run: pip install ruff
 
@@ -54,8 +60,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Lint JSON files
-        uses: Rosalun/action-jsonlint@v1
+      - name: Setup Nodejs
+        uses: actions/setup-node@v4
         with:
-          include: '**/*.json'
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependency
+        run: npm install -g jsonlint
+
+      - name: Lint JSON files
+        run: find . -name "*.json" -not -path "./node_modules/*" | xargs -n 1 jsonlint -q
 
