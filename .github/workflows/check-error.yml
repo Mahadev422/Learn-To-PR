@@ -3,10 +3,16 @@ name: Lint and Deploy
 on:
   push:
     branches: [main]
-    paths: ['**.html', '**.js', '**.css']
+    paths:
+      - '**.html'
+      - '**.js'
+      - '**.css'
 
   pull_request:
-    paths: ['**.html', '**.js', '**.css']
+    paths:
+      - '**.html'
+      - '**.js'
+      - '**.css'
 
 permissions:
   pages: write
@@ -24,7 +30,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Install Modern Linting Tools
         run: npm install eslint@latest globals @eslint/js --save-dev
