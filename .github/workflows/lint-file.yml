@@ -1,0 +1,49 @@
+name: Static Analysis
+
+on:
+  push:
+    branches: [main]
+
+  pull_request:
+    branches: [main]
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      markdown: ${{ steps.filter.outputs.markdown }}
+      json: ${{ steps.filter.outputs.json }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            markdown:
+              - '**/*.md'
+            json:
+              - '**/*.json'
+
+  markdown-lint:
+    needs: changes
+    if: ${{ needs.changes.outputs.markdown == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run markdownlint-cli2
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: '**/*.md'
+
+  json-lint:
+    needs: changes
+    if: ${{ needs.changes.outputs.json == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint JSON files
+        uses: Rosalun/action-jsonlint@v1
+        with:
+          include: '**/*.json'
+
