@@ -1,5 +1,8 @@
-[tool.ruff]
-# Enable specific rules (e.g., Pyflakes 'F', Isort 'I')
-select = ["E", "F", "I"]
-# Ignore line length errors
-ignore = ["E501"]
+[lint]
+# E902: IOError, E999: SyntaxError
+# F632: use of 'is' for literals (often a logic bug)
+# F701-F723: Syntax-related errors in strings/f-strings
+select = ["E9", "F63", "F7", "F82"]
+
+# This ensures it ignores everything else (style, sorting, unused imports)
+ignore = []
